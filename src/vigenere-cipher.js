@@ -1,13 +1,49 @@
 const CustomError = require("../extensions/custom-error");
 
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
-  }    
-  decrypt() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  constructor(isDirect = true) {
+    this.isDirect = isDirect;
+  }
+  encrypt(message, key) {
+    if (!message || !key) {
+      throw new Error();
+    }
+    return vizhener(message, key, true, this.isDirect);
+  }
+  decrypt(encryptedMessage, key) {
+    if (!encryptedMessage || !key) {
+      throw new Error();
+    }
+    return vizhener(encryptedMessage, key, false, this.isDirect);
+  }
+}
+
+function vizhener(message, key, encrypt, isDirect){
+  message = message.toUpperCase();
+  key = key.toUpperCase();
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let result = '';
+  for(let i = 0, j = 0; i < message.length; i++, j++){
+    let messageIndex = alphabet.indexOf(message[i]);
+    let keyIndex = alphabet.indexOf(key[((j >= key.length) ? j%key.length : j)]);
+    let alphabetIndex;
+    if (messageIndex !== -1) {
+      if (encrypt) {
+        alphabetIndex = (((alphabet.length + (messageIndex + keyIndex)) % alphabet.length));
+      } else {
+        alphabetIndex = (((alphabet.length + (messageIndex - keyIndex)) % alphabet.length));
+      }
+      let symbol = alphabet[alphabetIndex];
+      result += symbol;
+    } else {
+      j--;
+      result += message[((i >= message.length) ? i%message.length : i)];
+    }
+  }
+  if (isDirect) {
+    return result;
+  } else {
+    return result.split('').reverse().join('');
   }
 }
 
