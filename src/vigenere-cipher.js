@@ -29,9 +29,9 @@ function vizhener(message, key, encrypt, isDirect){
     let alphabetIndex;
     if (messageIndex !== -1) {
       if (encrypt) {
-        alphabetIndex = (((alphabet.length + (messageIndex + keyIndex)) % alphabet.length));
+        alphabetIndex = (alphabet.length + (messageIndex + keyIndex)) % alphabet.length;
       } else {
-        alphabetIndex = (((alphabet.length + (messageIndex - keyIndex)) % alphabet.length));
+        alphabetIndex = (alphabet.length + (messageIndex - keyIndex)) % alphabet.length;
       }
       let symbol = alphabet[alphabetIndex];
       result += symbol;
