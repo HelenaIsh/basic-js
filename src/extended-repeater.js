@@ -1,3 +1,5 @@
+const { NotImplementedError } = require('../extensions/index.js');
+
 /**
  * Create a repeating string based on the given parameters
  *  
@@ -13,7 +15,7 @@
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-export default function repeater(str, options) {
+function repeater(str, options) {
   let additionalString = ''
   if (options['addition'] !== undefined) {
     additionalString = findAdditionalString(options['addition'], options['additionRepeatTimes'], options['additionSeparator'], true);
@@ -36,3 +38,7 @@ function findAdditionalString(str, times = 1, separator, flag) {
   }
   return string;
 }
+
+module.exports = {
+  repeater
+};

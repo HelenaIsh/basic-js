@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+const { NotImplementedError } = require('../extensions/index.js');
 
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
@@ -17,7 +17,7 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-export default function dateSample(sampleActivity) {
+function dateSample(sampleActivity) {
   if(isNaN(sampleActivity) || sampleActivity <= 0 || (typeof sampleActivity !== "string")  || sampleActivity > 15) {
     return false;
   }
@@ -25,3 +25,7 @@ export default function dateSample(sampleActivity) {
   const a = Math.log(MODERN_ACTIVITY/sampleActivity)
   return Math.ceil(a/k);
 }
+
+module.exports = {
+  dateSample
+};
